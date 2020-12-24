@@ -48,7 +48,7 @@ class Client {
     return data;
   }
 
-  execute(sqlStatement, cb) {
+  execute(sqlStatement, cb, raw) {
     if (!this.connection) {
       cb("ERROR: Not Connected - unable to execute!", null);
     } else {
@@ -64,12 +64,12 @@ class Client {
                 0,
                 resultSet.numRows,
                 (result) => {
-                  if(result.data) cb(null, this.resultToJSON(result));
+                  if(result.data) cb(null, raw ? result : this.resultToJSON(result));
                   else cb(null, null);
                 }
               );
             } else{
-              if(resultSet.data) cb(null, this.resultToJSON(resultSet));
+              if(resultSet.data) cb(null, raw ? resultSet : this.resultToJSON(resultSet));
               else cb(null, null);
             } 
           } // Non-query statement

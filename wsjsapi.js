@@ -508,7 +508,10 @@ module.exports = {
 
     context.inwork = false;
     context.connection = new WebSocket(url);
-    context.connection.onopen = function () {
+
+    var ws = context.connection;
+    var connect = function () {
+      console.log('connecting...')
       context.com(
         { command: "login", protocolVersion: 1 },
         function (response) {
@@ -542,6 +545,14 @@ module.exports = {
         },
         context.onerror
       );
+    }
+    ws.onopen = connect;
+
+    ws.onclose = function (e) {
+      console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
+      setTimeout(function() {
+        connect();
+      }, 1000);
     };
   },
 };
