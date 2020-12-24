@@ -18,6 +18,6 @@
   "homepage": "https://github.com/LeanBITech/Nodejs-Exasol#readme",
   "dependencies": {
     "jsbn": "^1.1.0",
-    "ws": "^7.4.0"
+    "websocket": "^1.0.33"
   }
 }

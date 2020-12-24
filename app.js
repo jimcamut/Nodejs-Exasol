@@ -3,8 +3,14 @@
 const wsjsapi = require("./wsjsapi");
 
 class Client {
-  connection = null;
-  autocommit = true;
+  constructor(username, password, url, port, autocommit) {
+    this.url = `ws://${url}:${port}`;
+    this.username = username;
+    this.password = password;
+    this.connection = null;
+    this.autocommit = true;
+    if (!autocommit) this.autocommit = false;
+  }
 
   connect(cb) {
     this.connection = new wsjsapi.Exasol(
@@ -76,13 +82,6 @@ class Client {
         }
       );
     }
-  }
-
-  constructor(username, password, url, port, autocommit) {
-    this.url = `ws://${url}:${port}`;
-    this.username = username;
-    this.password = password;
-    if (!autocommit) this.autocommit = false;
   }
 }
 
