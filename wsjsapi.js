@@ -1,5 +1,5 @@
 const jsbn = require("jsbn");
-const WebSocket = require("websocket");
+const WebSocket = require("websocket").w3cwebsocket;
 
 const debug = false;
 
